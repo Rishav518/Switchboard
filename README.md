@@ -137,7 +137,7 @@ core/routing.py                model routing, running tasks and the delegation h
 ui/                            shared design for both panels
 tools/build.py                 builds both panels from ui/ and copies the engine into each
 claude-code/                   installer and the /accounts and /switch-account commands
-vscode-extension/              extension source and claude-accounts-1.3.0.vsix
+vscode-extension/              extension source and claude-accounts-1.3.1.vsix
 hermes/plugins/claude-accounts Hermes backend
 hermes/desktop-plugins/…       Hermes right-sidebar pane
 docs/images/                   README screenshots

@@ -954,8 +954,8 @@ function ClaudeCard({ a, data, onRemove }) {
     ],
     children: [
       a.oauth === false ? jsx(Note, { icon: 'info', children: 'API-key credential — usage limits are only reported for Claude subscription logins.' }, 'k') : jsx(Meters, { a, threshold: s.threshold, watch: s.windows }, 'm'),
-      a.same_as
-        ? jsx(Note, { kind: 'warn', icon: 'info', children: `Same account as the other ${prof.email || 'login'} card, so they share one limit.${a.follows_claude_code ? ' This login follows Claude Code and changes when you switch accounts there.' : ''}` }, 'dup')
+      a.twins && a.twins.length
+        ? jsx(Note, { icon: 'info', children: a.twins.some(t => t.follows_claude_code) || a.follows_claude_code ? 'Claude Code is signed into this same account, so Hermes holds it twice. It counts as one account here.' : 'Hermes holds two logins for this account. It counts as one account here.' }, 'dup')
         : a.follows_claude_code
           ? jsx(Note, { icon: 'info', children: 'Follows Claude Code: this becomes whichever account Claude Code is signed into.' }, 'fcc')
           : null,

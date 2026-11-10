@@ -869,6 +869,20 @@ def snapshot() -> dict[str, Any]:
                     a["same_as"] = main["id"]
     for a in accounts:
         a["follows_claude_code"] = a["source"] == "claude_code"
+    # one card per real account: fold a second login of the same account into the first
+    alias = {a["id"]: a["same_as"] for a in accounts if a.get("same_as")}
+    if alias:
+        by_id = {a["id"]: a for a in accounts}
+        for dup, main_id in alias.items():
+            m, d = by_id[main_id], by_id[dup]
+            m["live_sessions"] = (m.get("live_sessions") or 0) + (d.get("live_sessions") or 0)
+            m.setdefault("twins", []).append({"id": dup, "follows_claude_code": d["follows_claude_code"]})
+            if not m.get("usage") and d.get("usage"):
+                m.update(usage=d["usage"], usage_at=d["usage_at"], usage_error=d["usage_error"], peak_pct=d["peak_pct"], peak_window=d["peak_window"])
+        accounts = [a for a in accounts if a["id"] not in alias]
+        for s in sessions:
+            if s.get("account_id") in alias:
+                s["account_id"] = alias[s["account_id"]]
     poll = settings["poll_seconds"]
     return {
         "ok": True,

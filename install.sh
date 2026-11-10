@@ -20,7 +20,7 @@ if sel --vscode; then
   echo "== VS Code =="
   CODE="$(command -v code || true)"
   [ -z "$CODE" ] && [ -x "/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code" ] && CODE="/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"
-  if [ -n "$CODE" ]; then "$CODE" --install-extension "$HERE/vscode-extension/claude-accounts-1.3.0.vsix" --force; else echo "VS Code CLI not found — install $HERE/vscode-extension/claude-accounts-1.3.0.vsix via Extensions → … → Install from VSIX"; fi
+  if [ -n "$CODE" ]; then "$CODE" --install-extension "$HERE/vscode-extension/claude-accounts-1.3.1.vsix" --force; else echo "VS Code CLI not found — install $HERE/vscode-extension/claude-accounts-1.3.1.vsix via Extensions → … → Install from VSIX"; fi
 fi
 if sel --hermes; then
   if command -v hermes >/dev/null 2>&1; then echo "== Hermes =="; bash "$HERE/hermes/install.sh"; else echo "(Hermes not installed — skipping)"; fi
