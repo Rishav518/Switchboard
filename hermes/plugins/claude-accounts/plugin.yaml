@@ -1,0 +1,4 @@
+name: claude-accounts
+version: 1.0.0
+description: "Connect several Claude (Pro/Max/Team) logins, watch each account's 5h/weekly usage and every session's context, and switch accounts automatically before one runs out (default 90%). Desktop right-sidebar pane + /claude-accounts command."
+author: "Rishav Kumar (built with Hermes)"

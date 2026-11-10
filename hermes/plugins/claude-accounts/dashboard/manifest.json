@@ -1,0 +1,9 @@
+{
+  "name": "claude-accounts",
+  "label": "Claude Accounts",
+  "description": "Multiple Claude logins: live usage per account, context per session, auto-switch at a usage threshold.",
+  "icon": "Users",
+  "version": "1.0.0",
+  "tab": { "path": "/claude-accounts", "hidden": true },
+  "api": "plugin_api.py"
+}

@@ -1,0 +1,128 @@
+{
+  "name": "claude-accounts",
+  "displayName": "Switchboard — AI accounts, usage & model routing",
+  "description": "One sidebar for all your Claude, Antigravity and GitHub Copilot accounts: live usage, automatic switching before an account runs out, model routing per agent, and a live view of running tasks and sub-agents.",
+  "version": "1.3.0",
+  "publisher": "rishavkumar",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "AI"
+  ],
+  "keywords": [
+    "claude",
+    "claude code",
+    "anthropic",
+    "antigravity",
+    "gemini",
+    "copilot",
+    "github copilot",
+    "usage",
+    "accounts",
+    "quota"
+  ],
+  "icon": "media/icon.png",
+  "main": "./extension.js",
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "claudeAccounts",
+          "title": "Switchboard",
+          "icon": "media/activity.svg"
+        }
+      ]
+    },
+    "views": {
+      "claudeAccounts": [
+        {
+          "type": "webview",
+          "id": "claudeAccounts.panel",
+          "name": "Accounts",
+          "icon": "media/activity.svg"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "claudeAccounts.refresh",
+        "title": "Refresh usage",
+        "category": "Switchboard",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "claudeAccounts.switch",
+        "title": "Switch account…",
+        "category": "Switchboard",
+        "icon": "$(arrow-swap)"
+      },
+      {
+        "command": "claudeAccounts.add",
+        "title": "Connect another account (Claude, Antigravity, Copilot)…",
+        "category": "Switchboard",
+        "icon": "$(add)"
+      },
+      {
+        "command": "claudeAccounts.import",
+        "title": "Save the account Claude Code is logged into",
+        "category": "Switchboard"
+      },
+      {
+        "command": "claudeAccounts.toggleAuto",
+        "title": "Toggle auto-switch",
+        "category": "Switchboard"
+      },
+      {
+        "command": "claudeAccounts.setupClaudeCode",
+        "title": "Set up Claude Code integration (status line, /accounts, MCP)",
+        "category": "Switchboard"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "claudeAccounts.add",
+          "when": "view == claudeAccounts.panel",
+          "group": "navigation@1"
+        },
+        {
+          "command": "claudeAccounts.refresh",
+          "when": "view == claudeAccounts.panel",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Switchboard",
+      "properties": {
+        "claudeAccounts.pythonPath": {
+          "type": "string",
+          "default": "python3",
+          "description": "Python 3.9+ used to run the bundled engine."
+        },
+        "claudeAccounts.corePath": {
+          "type": "string",
+          "default": "",
+          "description": "Optional path to claude_accounts.py (defaults to ~/.claude-accounts/bin/claude_accounts.py, then the bundled copy)."
+        },
+        "claudeAccounts.refreshSeconds": {
+          "type": "number",
+          "default": 60,
+          "minimum": 20,
+          "description": "How often the panel refreshes (auto-switch itself follows the engine's poll interval)."
+        },
+        "claudeAccounts.statusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the account / usage / context item in the status bar."
+        }
+      }
+    }
+  }
+}
