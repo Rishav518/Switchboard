@@ -461,7 +461,8 @@ def _ag_usage(token: str) -> Tuple[Optional[dict], Optional[str]]:
     for mid, m in items:
         q = (m or {}).get("quotaInfo") or {}
         name = (m or {}).get("displayName")
-        if not name or "remainingFraction" not in q or "image" in mid:
+        # proto3 JSON drops zero values: an exhausted quota has resetTime but no remainingFraction.
+        if not name or ("remainingFraction" not in q and "resetTime" not in q) or "image" in mid:
             continue
         low = mid.lower()
         key, label = next(((k, lbl) for k, lbl, needles in _AG_GROUPS if any(n in low for n in needles)), ("other", "Other"))
