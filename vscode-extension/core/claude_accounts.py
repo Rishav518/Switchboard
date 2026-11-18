@@ -449,7 +449,7 @@ def fetch_usage(token: str, cache_key: str, max_age: float) -> Tuple[Optional[di
     cache = _read("usage.json", {})
     cache = cache if isinstance(cache, dict) else {}
     hit = cache.get(cache_key)
-    if hit and now() - hit.get("at", 0) < max_age:
+    if hit and now() - (hit.get("at") or 0) < max_age:
         return hit.get("data"), hit.get("error"), hit.get("at")
     code, body = _http("GET", USAGE_URL, token=token)
     if code == 200 and isinstance(body, dict):
